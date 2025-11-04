@@ -5,7 +5,7 @@ const { Errorhandler } = require("../exseptions/ErrorHandler");
 dotenv.config();
 
 module.exports = (req, res, next) => {
-    console.log(access_token, "access_token0");
+    console.log( "access_token0");
 
   const { access_token } = req.headers;
     console.log(access_token, "access_token1");
