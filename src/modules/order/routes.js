@@ -7,7 +7,7 @@ const orderRoutes = Router();
 orderRoutes
   .get("/order", verify, order.GET)
   .get("/order/:id", verify, order.GETONE)
-  .post("/order", order.CREATE)
+  .post("/order", verify, order.CREATE)
   .patch("/order/:id", verify, order.UPDATE)
   .delete("/order/:id", verify, order.DELETE);
 
