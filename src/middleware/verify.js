@@ -9,6 +9,7 @@ module.exports = (req, res, next) => {
   if (!access_token) {
     return next(new Errorhandler("Access token is required", 401));
   }
+  console.log(access_token, "access_token");
 
   jwt.verify(access_token, process.env.SECRET_KEY, (err, decoded) => {
     if (err instanceof jwt.JsonWebTokenError) {
