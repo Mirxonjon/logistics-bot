@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const { CronJob } = require("cron");
 const cron = require("cron");
 const routes = require("./src/modules/routes");
+const cors = require("cors"); // 🔥 CORS ni chaqirish
 const errorHandler = require("./src/middleware/errorHandler");
 
 require("dotenv").config();
@@ -11,6 +12,12 @@ const Users = require("./src/model/users");
 
 require("./src/utils/cron");
 const app = express();
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  })
+);
 
 app.use(express.json());
 app.use(routes);
