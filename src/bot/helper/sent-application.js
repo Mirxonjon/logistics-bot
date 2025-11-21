@@ -8,13 +8,13 @@ const {
 } = require("../menu/keyboard");
 
 const sentOrderToChanel = async (text) => {
-  const CHANNEL_ID = "-1003193144547";
+  const CHANNEL_ID = process.env.TELEGRAM_CHANNEL_ID;
   const message = await bot.sendMessage(CHANNEL_ID, text);
   return message;
 };
 
 const updateOrderInChannel = async (messageId, newText) => {
-  const CHANNEL_ID = "-1003193144547";
+  const CHANNEL_ID = process.env.TELEGRAM_CHANNEL_ID;
 
   const message = await bot.editMessageText(newText, {
     chat_id: CHANNEL_ID,
@@ -25,7 +25,7 @@ const updateOrderInChannel = async (messageId, newText) => {
 };
 
 const deleteOrderMessage = async (messageId) => {
-  const CHANNEL_ID = "-1003193144547";
+  const CHANNEL_ID = process.env.TELEGRAM_CHANNEL_ID;
 
   try {
     await bot.deleteMessage(CHANNEL_ID, messageId);
