@@ -110,9 +110,7 @@ module.exports = {
         return d.toLocaleDateString("uz-UZ"); // 27.11.2025 formatda qaytaradi
       };
       const loadTimeText =
-        pickupDate === today
-          ? `${formatDate(pickupDate)} / Тайёр`
-          : `${formatDate(pickupDate)} `;
+        pickupDate === today ? `Тайёр` : `${formatDate(pickupDate)} `;
 
       const message = `
 ${flagFrom} *${regionFrom} → ${regionTo}* ${flagTo}
@@ -226,9 +224,7 @@ ${flagFrom} *${regionFrom} → ${regionTo}* ${flagTo}
         return d.toLocaleDateString("uz-UZ"); // 27.11.2025 formatda qaytaradi
       };
       const loadTimeText =
-        pickupDate === today
-          ? `${formatDate(pickupDate)} / Тайёр`
-          : `${formatDate(pickupDate)} `;
+        pickupDate === today ? `Тайёр` : `${formatDate(pickupDate)} `;
 
       const message = `
 ${flagFrom} *${regionFrom} → ${regionTo}* ${flagTo}
