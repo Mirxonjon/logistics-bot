@@ -23,9 +23,9 @@ module.exports = {
 
   async REGISTER(req, res, next) {
     try {
-      const { username, password, phone } = req.body;
+      const { username, password, phone_number, full_name } = req.body;
 
-      if (!username || !password || !phone) {
+      if (!username || !password || !phone_number || !full_name) {
         return res.status(400).json({
           message: "username and password and phone are required",
           status: 400,
@@ -45,7 +45,8 @@ module.exports = {
       const user = await Users.create({
         username,
         password,
-        phone,
+        phone_number,
+        full_name,
       });
 
       return res.status(201).json({

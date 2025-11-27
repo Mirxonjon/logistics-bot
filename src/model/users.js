@@ -6,7 +6,8 @@ const Users = new Schema({
   username: String,
   password: String,
   language: String,
-  phone: String,
+  phone_number: String,
+  full_name: String,
   cardNumber: {
     type: String,
     default: "1234 5678 9012 3456",
