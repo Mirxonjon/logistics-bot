@@ -37,7 +37,7 @@ async function dev() {
     app.listen(process.env.PORT, () => {
       console.log("server is runing" + process.env.PORT);
     });
-    // asdsadasd
+
     // await updateAllOperatorsData();
   } catch (error) {
     console.log(error.message);
