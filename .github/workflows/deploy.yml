@@ -23,7 +23,6 @@ jobs:
             cd /home/Projects/prod/logist/logistics-bot/
             git pull origin main
             docker compose down
-            docker compose build
-            docker compose up -d
+            docker compose -f docker-compose-prod.yml up -d -- build
             docker system prune -f
           EOF
