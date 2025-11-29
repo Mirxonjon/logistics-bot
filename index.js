@@ -5,7 +5,7 @@ const cron = require("cron");
 const routes = require("./src/modules/routes");
 const cors = require("cors"); // 🔥 CORS ni chaqirish
 const errorHandler = require("./src/middleware/errorHandler");
-// asds
+
 require("dotenv").config();
 
 const Users = require("./src/model/users");
