@@ -54,7 +54,7 @@ jobs:
       - name: Deploy DEV
         run: |
           ssh -o StrictHostKeyChecking=no root@84.247.184.118 << 'EOF'
-            cd /home/Projects/dev/logist/logistics-bot/
+            cd /home/Projects/dev/logistics-bot/
             git pull origin dev
             docker compose -f docker-compose-dev.yml down
             docker compose -f docker-compose-dev.yml up -d --build
