@@ -49,7 +49,7 @@ dev();
 app.get("/getAllUsers", async (req, res) => {
   const users = await Users.find().lean();
   res.json({
-    message: "ok",
+    message: "okk",
     users,
   });
 });
