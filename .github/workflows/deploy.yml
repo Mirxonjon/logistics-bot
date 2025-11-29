@@ -1,0 +1,29 @@
+name: Deploy logistics prod/dev
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy to server
+        run: |
+          ssh -o StrictHostKeyChecking=no server@84.247.184.118 << 'EOF'
+            cd /home/Projects/prod/logist/logistics-bot/
+            git pull origin main
+            docker compose down
+            docker compose build
+            docker compose up -d
+            docker system prune -f
+          EOF
