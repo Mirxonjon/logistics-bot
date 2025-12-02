@@ -71,6 +71,7 @@ module.exports = {
         pickupDate,
         title,
         vehicleBodyType,
+        cargoUnit,
         vehicleType,
         weight,
       } = req.body;
@@ -87,10 +88,12 @@ module.exports = {
         iran: "🇮🇷",
         afghanistan: "🇦🇫",
         georgia: "🇬🇪",
+        belarus: "🇧🇾",
+        russia: "🇷🇺",
       };
 
-      const finalRegionFrom = getRegionLabel(countryFrom, regionFrom);
-      const finalRegionTo = getRegionLabel(countryTo, regionTo);
+      // const finalRegionFrom = getRegionLabel(countryFrom, regionFrom);
+      // const finalRegionTo = getRegionLabel(countryTo, regionTo);
 
       const flagFrom = countryFlags[countryFrom] || "";
       const flagTo = countryFlags[countryTo] || "";
@@ -105,30 +108,48 @@ module.exports = {
           ? "комбо"
           : "-";
 
-      const formattedAmount = Number(paymentAmount)
-        .toLocaleString("ru-RU")
-        .replace(/,/g, " ");
-      const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD format
+      const formattedAmount =
+        paymentAmount && paymentAmount !== "undefined"
+          ? Number(paymentAmount).toLocaleString("ru-RU").replace(/,/g, " ")
+          : "";
+
+      const today = new Date().toISOString().split("T")[0];
 
       const loadTimeText =
-        pickupDate === today ? `Тайёр` : `${formatDate(pickupDate)} `;
+        pickupDate === today
+          ? `Тайёр`
+          : `${formatDate(pickupDate).split("/").join(".")} `;
+      const capacityText =
+        capacity && capacity !== "undefined"
+          ? `\n📐 Ҳажми: ${capacity} м³`
+          : "";
+      const vehicleBodyTypeText =
+        vehicleBodyType && vehicleBodyType !== "undefined"
+          ? `\n🚋 Прицеп: ${vehicleBodyType}`
+          : "";
 
+      const paymentTextLine =
+        paymentText != "-" ? `\n💰 Тўлов тури: ${paymentText}` : "";
+
+      const paymentAmountLine = formattedAmount
+        ? `\n💸 Нархи: ${formattedAmount} ${
+            paymentCurrency === "usd" ? "$" : "сўм"
+          }`
+        : "";
+
+      const descriptionText =
+        description && description !== "undefined"
+          ? `\n📝 Тавсиф: ${description}`
+          : "";
       const message = `
-${flagFrom} *${finalRegionFrom} → ${finalRegionTo}* ${flagTo}
+${flagFrom} *${regionFrom} → ${regionTo}* ${flagTo}
 
 📦 Юк: ${title}
-⚖️ Оғирлиги: ${weight} тонна
-📐 Ҳажми: ${capacity && capacity !== "undefined" ? capacity : "-"} м³
-🚛 Авто: ${vehicleType}
-🚋 Прицеп: ${
-        vehicleBodyType && vehicleBodyType !== "undefined"
-          ? vehicleBodyType
-          : "-"
-      }
-💰 Тўлов тури: ${paymentText}
-💸 Нархи: ${formattedAmount} ${paymentCurrency == "usd" ? "$" : "сўм"}
-🕔 Юклаш вақти: ${loadTimeText}
-📝 Тавсиф: ${description && description !== "undefined" ? description : "-"}
+⚖️ Оғирлиги: ${weight} ${
+        cargoUnit == "tons" ? "тонна" : "поддон"
+      } ${capacityText}
+🚛 Авто: ${vehicleType}${vehicleBodyTypeText}${paymentTextLine}${paymentAmountLine}
+🕔 Юклаш вақти: ${loadTimeText}${descriptionText}
 
 📞 Алоқа: ${phone_number}
 `;
@@ -148,6 +169,7 @@ ${flagFrom} *${finalRegionFrom} → ${finalRegionTo}* ${flagTo}
         phone_number,
         pickupDate,
         title,
+        cargoUnit,
         vehicleBodyType,
         vehicleType,
         weight,
@@ -184,6 +206,7 @@ ${flagFrom} *${finalRegionFrom} → ${finalRegionTo}* ${flagTo}
         pickupDate,
         title,
         vehicleBodyType,
+        cargoUnit,
         vehicleType,
         weight,
       } = req.body;
@@ -201,8 +224,9 @@ ${flagFrom} *${finalRegionFrom} → ${finalRegionTo}* ${flagTo}
         iran: "🇮🇷",
         afghanistan: "🇦🇫",
         georgia: "🇬🇪",
+        belarus: "🇧🇾",
+        russia: "🇷🇺",
       };
-
       const flagFrom = countryFlags[countryFrom] || "";
       const flagTo = countryFlags[countryTo] || "";
 
@@ -222,24 +246,34 @@ ${flagFrom} *${finalRegionFrom} → ${finalRegionTo}* ${flagTo}
       const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD format
 
       const loadTimeText =
-        pickupDate === today ? `Тайёр` : `${formatDate(pickupDate)} `;
+        pickupDate === today
+          ? `Тайёр`
+          : `${formatDate(pickupDate).split("/").join(".")} `;
+      const capacityText =
+        capacity && capacity !== "undefined"
+          ? `\n📐 Ҳажми: ${capacity} м³`
+          : "";
+      const vehicleBodyTypeText =
+        vehicleBodyType && vehicleBodyType !== "undefined"
+          ? `\n🚋 Прицеп: ${vehicleBodyType}`
+          : "";
+
+      const descriptionText =
+        description && description !== "undefined"
+          ? `\n📝 Тавсиф: ${description}`
+          : "";
 
       const message = `
 ${flagFrom} *${regionFrom} → ${regionTo}* ${flagTo}
 
 📦 Юк: ${title}
-⚖️ Оғирлиги: ${weight} тонна
-📐 Ҳажми: ${capacity && capacity !== "undefined" ? capacity : "-"} м³
-🚛 Авто: ${vehicleType}
-🚋 Прицеп: ${
-        vehicleBodyType && vehicleBodyType !== "undefined"
-          ? vehicleBodyType
-          : "-"
-      }
+⚖️ Оғирлиги: ${weight} ${
+        cargoUnit == "tons" ? "тонна" : "поддон"
+      } ${capacityText}
+🚛 Авто: ${vehicleType}${vehicleBodyTypeText}
 💰 Тўлов тури: ${paymentText}
 💸 Нархи: ${formattedAmount} ${paymentCurrency == "usd" ? "$" : "сўм"}
-🕔 Юклаш вақти: ${loadTimeText}
-📝 Тавсиф: ${description && description !== "undefined" ? description : "-"}
+🕔 Юклаш вақти: ${loadTimeText}${descriptionText}
 
 📞 Алоқа: ${phone_number}
 `;
@@ -263,6 +297,7 @@ ${flagFrom} *${regionFrom} → ${regionTo}* ${flagTo}
           paymentAmount,
           paymentCurrency,
           paymentType,
+          cargoUnit,
           phone_number,
           pickupDate,
           title,

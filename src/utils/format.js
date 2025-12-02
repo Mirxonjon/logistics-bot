@@ -27,4 +27,14 @@ const formatDate = (dateStr) => {
   return d.toLocaleDateString("uz-UZ"); // 27.11.2025 formatda qaytaradi
 };
 
-module.exports = { getRegionLabel, formatDate };
+const formatedDate = (dateStr) => {
+  if (!dateStr) return "";
+
+  // "28/11/2025" → [28, 11, 2025]
+  const [day, month, year] = dateStr.split("/");
+
+  return `${day}.${month}.${year}`;
+};
+
+
+module.exports = { getRegionLabel, formatDate, formatedDate };
