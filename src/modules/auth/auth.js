@@ -13,8 +13,14 @@ module.exports = {
       if (!user) return res.status(404).json({ message: "User not found" });
 
       res.json({
-        message: "Get me successful",
-        data: user,
+        message: "successful",
+        status: 200,
+        data: {
+          id: user._id,
+          username: user.username,
+          phone_number: user.phone_number,
+          full_name: user.full_name,
+        },
       });
     } catch (err) {
       next(err);

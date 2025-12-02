@@ -13,6 +13,7 @@ const Order = new Schema(
     phone_number: { type: String, required: true },
 
     weight: { type: Number, required: true },
+    cargoUnit: { type: String, required: false }, // kg/ton etc
 
     pickupDate: { type: String, required: true }, // YYYY-MM-DD
     pickupTime: { type: String, required: false }, // HH:mm
